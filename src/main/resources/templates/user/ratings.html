@@ -1,0 +1,98 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Reviews</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Fontawesome icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" th:href="@{/user/filme}">Film Review</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/user/filme}">Filme</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/user/ratings}">Bewertungen</a></li>
+                    <li class="nav-item" th:if="${isAdmin}"><a class="nav-link" th:href="@{/admin/filme}" style="color: yellow;">Admin-Bereich</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}" style="color: red;">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br >    <br >    <br >    <br >
+	
+	<div class="row d-flex justify-content-center">
+	  <div class="col-md-8 col-lg-6">
+	  	
+ 	            	<!-- Page Features-->
+   		<div class="container">
+		    <div class="p-4 rounded-3 text-center">
+          			<h2 class="mb-3 font-weight-bold">Bearbeite deine Bewertungen!</h2>
+		    </div>
+		</div>
+		
+	  	<div class="row justify-content-center">
+		  <div class="col-md-10">
+		    <div class="form-group">
+		      <form class="form-inline" th:action="@{/user/ratings/search}">
+		        <div class="input-group d-flex align-items-center">
+		          <input type="text" class="form-control" name="query" placeholder="...film, sterne, kritk">
+		          <span>
+		            <button class="btn btn-primary" type="submit"><i class="fa fa-search" id="searchButton"></i></button>
+		            <a th:href="@{/user/ratings}" class="btn btn-danger ml-2"><i class="fas fa-minus-square"></i></a>
+		          </span>
+		        </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+		
+		
+	    <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+	      <div class="card-body p-4">
+	
+			<div th:if="${#lists.isEmpty(bewertungen)}">
+			  <p>keine Bewertungen gefunden</p>
+			</div>
+			
+			<div th:unless="${#lists.isEmpty(bewertungen)}">
+			  <div th:each="bewertung: ${bewertungen}" class="card mb-4">
+			    <div class="card-body">
+			      <img th:src="@{'/user/ratings/' + ${bewertung.film.id}}" alt="bewertung.film.titel" width="200" height="325" style="display: block; margin: 0 auto; text-align: center;">			      	
+			    	<br>
+			      <p th:text="${bewertung.kritik}"></p>
+			      <div class="d-flex justify-content-between">
+			        <div class="d-flex flex-row align-items-center">
+			          <i class="fa fa-star mx-2 fa-xs text-yellow"></i>
+			          <p class="small mb-0 ms-2" th:text= "${bewertung.punkte}"></p>
+			        </div>
+			        <div class="d-flex flex-row align-items-center">
+			          <a th:href="@{/user/ratings/edit/{id}(id=${bewertung.id})}" class="btn btn-primary">
+			              <i class="far fa-edit mx-2 fa-xs"></i>
+			          </a>
+			        </div>
+			        <div class="d-flex flex-row align-items-center">
+						<a th:href="@{/user/ratings/delete/{id}(id=${bewertung.id})}" class="btn btn-danger"><i
+			                                        class="fas fa-minus-square ml-2"></i></a>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

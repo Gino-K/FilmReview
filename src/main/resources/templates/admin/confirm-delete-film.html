@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Film Review</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+<body>
+
+
+<div th:insert="admin/header :: navbar"> </div>
+<br> <br> <br>
+
+
+<div class="container my-2 d-flex justify-content-center">
+	<div class="card w-50">
+		<div class="card-body text-center">
+			<h1>Löschen bestätigen</h1>
+			<p>Wollen Sie den Film wirklich löschen: <strong th:text="${film.titel}"></strong>?</p>
+			<form action="/admin/remove-film" method="post">
+				<input type="hidden" name="id" th:value="${film.id}">
+				<button type="submit" class="btn btn-danger">Löschen</button>
+				<a href="/admin/filme" class="btn btn-secondary">Abbruch</a>
+			</form>
+		</div>
+	</div>
+</div> 
+             <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> 
+</body>
+</html>

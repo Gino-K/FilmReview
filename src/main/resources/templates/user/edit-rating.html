@@ -1,0 +1,87 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Reviews</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Fontawesome icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" th:href="@{/user/filme}">Film Review</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/user/filme}">Filme</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/user/ratings}">Bewertungen</a></li>
+                    <li class="nav-item" th:if="${isAdmin}"><a class="nav-link" th:href="@{/admin/filme}" style="color: yellow;">Admin-Bereich</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}" style="color: red;">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+       <br/><br/> <br/><br/>
+<div class="container">
+    <div class="row col-md-8 offset-md-2">
+ 
+    
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Bewertung bearbeiten</h2>
+            </div>
+            <div class="card-body">
+                <form role="form" method="post" th:action="@{/user/ratings/edited/{bewertungId} (bewertungId=${bewertung.id})}" th:object="${bewertung}" >
+                    
+                    <div th:if="${updateMessage}" class="alert alert-warning">
+    					<p th:text="${updateMessage}"></p>
+					</div>
+                    	
+                    <div class="mb-3">
+                        <label class="form-label"> Punkte </label>
+                        <input
+                                type="number"
+                                class="form-control"
+                                id="punkte"
+                                placeholder="Enter punkte"
+                                name="punkte"
+                                th:field="*{punkte}"
+                                min="1" max="5" 
+                                
+                        />
+                        <p th:if="${#fields.hasErrors('punkte')}" class="text-danger"
+                        th:errors="*{punkte}"></p>
+                    </div>
+                    	
+                    <div class="mb-3">
+                    	
+                        <label class="form-label"> Kritik </label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="kritik"
+                                placeholder="Enter Film kritik"
+                                name="kritik"
+                                th:field="*{kritik}"
+                        />
+                        <p th:if="${#fields.hasErrors('kritik')}" class="text-danger"
+                        th:errors="*{kritik}"></p>
+                    </div>
+					
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a th:href="@{/user/ratings}" class="btn btn-danger ml-2">Abbrechen</a>
+                 </form>
+               </div>
+            </div>
+         </div>
+     </div>
+   <!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
