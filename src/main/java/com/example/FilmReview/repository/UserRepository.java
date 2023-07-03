@@ -16,4 +16,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return Der gefundene Benutzer.
      */
 	User findByBenutzername(String benutzername);
+
+    /**
+     * Sucht einen Benutzer anhand des Benutzernamens.
+     * 
+     * @param benutzername Der Benutzername des Benutzers.
+     * @return Der gefundene Benutzer.
+     */
+	boolean existsUserByRolesName(String string);
 }

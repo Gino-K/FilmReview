@@ -65,6 +65,24 @@ public class AdminController {
 		return "admin/filme";
 	}
 	
+	@GetMapping("/admin/images/{id}")
+	public ResponseEntity<Resource> getFilmeImage(@PathVariable int id) throws IOException {
+	    Film film = filmService.findFilmById(id);
+	    
+	    if (film != null && film.getBild() != null) {
+	        String imagePath = "src/main/resources/added/" + id + "/" + film.getBild();
+	        Path imageFile = Paths.get(imagePath);
+	        Resource resource = new UrlResource(imageFile.toUri());
+
+	        if (resource.exists()) {
+	            return ResponseEntity.ok()
+	                    .contentType(MediaType.IMAGE_PNG)
+	                    .body(resource);
+	        }
+	    }
+	    return ResponseEntity.notFound().build();
+	}
+	
     /**
      * Zeigt die Details eines Films an.
      *

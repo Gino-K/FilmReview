@@ -21,7 +21,9 @@ import com.example.FilmReview.models.Film;
 import com.example.FilmReview.service.FilmService;
 import com.example.FilmReview.service.UserService;
 
-
+/**
+ * Der UserController ist fuer die Verwaltung von Filmen im Userbereich zustaendig.
+ */
 @Controller
 public class UserController {
 	
@@ -31,9 +33,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-
-	
-	//Gibt model und view wieder
+    /**
+     * Zeigt alle Filme an.
+     *
+     * @param model Das Model-Objekt zur Uebermittlung von Daten an die View.
+     * @return Die View fuer die Liste der Filme.
+     */
 	@GetMapping("/user/filme")
 	public String findAllFilms(Model model) {
 		
@@ -55,6 +60,13 @@ public class UserController {
 		return "user/filme";
 	}
 	
+	/**
+	 * Liefert das Bild eines Films.
+	 *
+	 * @param id Die ID des Films.
+	 * @return Die HTTP-Antwort mit dem Bild als Ressource.
+	 * @throws IOException Falls ein Fehler beim Lesen des Bilds auftritt.
+	 */
 	@GetMapping("/user/images/{id}")
 	public ResponseEntity<Resource> getFilmeImage(@PathVariable int id) throws IOException {
 	    Film film = filmService.findFilmById(id);
@@ -75,7 +87,13 @@ public class UserController {
 	
 
 	
-    //handle search Film Request
+    /**
+     * Verarbeitet die Suche nach Filmen.
+     *
+     * @param query  Der Suchbegriff fuer die Filmsuche.
+     * @param model Das Model-Objekt zur Uebermittlung von Daten an die View.
+     * @return Die View mit den Suchergebnissen.
+     */
     @GetMapping("/user/filme/search")
     public String searchFilme(@RequestParam(value = "query") String query, Model model) {
         model.addAttribute("isAdmin", userService.isUserAdmin());

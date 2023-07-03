@@ -36,7 +36,7 @@
 					<div th:switch="${film}" class="container my-5">
 					    <div class="d-flex align-items-start">
 					    	<div class="d-none d-xl-block">
-					    		<img th:src="@{/user/rate-film/image/{id}(id=${film.id})}" alt="Film Image" class="mr-3" />
+					    		<img th:src="@{/user/rate-film/image/{id}(id=${film.id})}" alt="Film Image" class="mr-3" width="340px" height="480px" />
 					    	</div>
 					        <div class ="ms-4">
 					            <h3><span th:text="${film.titel}"></span></h3>
