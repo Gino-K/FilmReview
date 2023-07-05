@@ -53,7 +53,7 @@ Ersetze deine-datenbank, dein-username und dein-passwort durch die entsprechende
 
 5. Starte die Anwendung:
 
-./mvnw spring-boot:run
+Linux/Mac: ./mvnw spring-boot:run Windows: mvnw spring-boot:run
 
 6. Öffne deinen Webbrowser und besuche die Adresse http://localhost:8080.
    
