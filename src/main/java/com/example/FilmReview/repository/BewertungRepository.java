@@ -83,15 +83,15 @@ public interface BewertungRepository extends JpaRepository<Bewertung, Integer> {
      * @param userId  Die ID des Benutzers.
      * @return Eine Liste von Bewertungen, die den Suchkriterien entsprechen und dem angegebenen Benutzer zugeordnet sind.
      */
-	@Query(value = "SELECT b.*, f.id as f_id, u.id as u_id " +
-            "FROM bewertungen b " +
-            "INNER JOIN filme f ON b.filmref = f.id " +
-            "INNER JOIN users u ON b.userref = u.id " +
-            "WHERE " +
-            "b.userref =:userId AND " + 
-            "b.kritik LIKE CONCAT('%', :query, '%') OR " +
-            "b.punkte LIKE CONCAT('%', :query, '%') OR " +
-            "f.titel LIKE CONCAT('%', :query, '%')", nativeQuery = true)
+	@Query(value = "SELECT b.*, f.id as f_id, u.id as u_id\r\n"
+			+ "FROM bewertungen b\r\n"
+			+ "INNER JOIN filme f ON b.filmref = f.id\r\n"
+			+ "INNER JOIN users u ON b.userref = u.id\r\n"
+			+ "WHERE \r\n"
+			+ "    b.userref = :userId AND\r\n"
+			+ "    (b.kritik LIKE CONCAT('%', :query, '%') OR\r\n"
+			+ "    b.punkte LIKE CONCAT('%', :query, '%') OR\r\n"
+			+ "    f.titel LIKE CONCAT('%', :query, '%'))", nativeQuery = true)
 	List<Bewertung> searchBewertungenUser(String query, int userId);
 
     
